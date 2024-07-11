@@ -1,0 +1,74 @@
+services:
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - .docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - .docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - skynet
+
+  scheduler:
+    container_name: 'scheduler'
+    depends_on:
+      - rabbitmq
+    build:
+      context: ./sensor
+      dockerfile: Dockerfile
+    command: celery -A tasks beat --loglevel=INFO
+    networks:
+      - skynet
+
+  sensor_reader:
+    container_name: 'sensor_reader'
+    depends_on:
+      - rabbitmq
+    build:
+      context: ./sensor
+      dockerfile: Dockerfile
+    networks:
+      - skynet
+
+  db:
+    container_name: 'db'
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    restart: always
+    shm_size: 128mb
+    networks:
+      - skynet
+    ports:
+      - 5432:5432
+    volumes:
+        - .docker-conf/postgres/data/:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_USER: boss
+      POSTGRES_PASSWORD: example
+
+  backend:
+    container_name: 'backend'
+    depends_on:
+      - rabbitmq
+      - db
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    networks:
+      - skynet
+    ports:
+      - 8080:80
+    environment:
+      - PGHOST=db
+      - PGDATABASE=sensors
+      - PGPORT=5432
+      - PGUSER=backend
+      - PGPASSWORD=hello
+
+networks:
+  skynet:
+    driver: bridge
