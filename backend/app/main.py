@@ -2,12 +2,11 @@ from typing import Annotated, List
 
 from fastapi import Depends
 
-from .setup_fastapi import setup_backend
-from .setup_alchemy import setup_sql_alchemy
-
-from .login import backend_login, OAuth2PasswordRequestForm
-from .sensor import backend_write_sensor_input, backend_read_sensor_data
+from .login import OAuth2PasswordRequestForm, backend_login
+from .sensor import backend_read_sensor_data, backend_write_sensor_input
 from .serializers import SerializedSensorInput
+from .setup_alchemy import setup_sql_alchemy
+from .setup_fastapi import setup_backend
 
 app = setup_backend()
 engine = setup_sql_alchemy()

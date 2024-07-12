@@ -4,8 +4,8 @@ from typing import List
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from .serializers import SerializedSensorInput
 from .orm_models import DbSensorInput
+from .serializers import SerializedSensorInput
 
 
 async def backend_write_sensor_input(engine, input: SerializedSensorInput):

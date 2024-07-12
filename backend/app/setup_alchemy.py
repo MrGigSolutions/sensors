@@ -1,6 +1,6 @@
 import os
 
-from sqlalchemy import create_engine, URL
+from sqlalchemy import URL, create_engine
 
 from .orm_models import Base
 
