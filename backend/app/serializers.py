@@ -10,6 +10,15 @@ class SerializedSensorInput(BaseModel):
     vibration_speed: int
     timestamp: datetime
 
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "machine": "machine1",
+                "vibration_speed": 3,
+                "timestamp": datetime.now().isoformat()
+            }
+        }
+
 
 class SerializedDateRange(BaseModel):
     # TODO: Limit this further to prevent massive queries, or

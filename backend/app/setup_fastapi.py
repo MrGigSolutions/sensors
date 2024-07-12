@@ -2,16 +2,17 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 TITLE = "Machine vibration simulator"
-DESCRIPTION = """Machine Vibration Simulator - ASML Test Case Mark Schuit
-    
-    ## Sensor Data
-    
-    You can **read machine data for a provided number of seconds**.
-    You can **add sensor readings for provided machine**
-    """
-SUMMARY = "This backend simulates the submission of vibration data. Its"
-"endpoints allow users to read sensor data, and allows the entry "
-"of new data."
+DESCRIPTION = """# Machine Vibration Simulator
+This backend simulates how inputs may be used to generate reports on a
+frontend, by using the following technology stacks:
+Python, SQLAlchemy, FastAPI, Celery, PostgreSQL, Pydantic, JavaScript, React, RabbitMQ, Docker
+
+## Sensor Data
+
+You can **read machine data for a provided number of seconds**.
+You can **add sensor readings for provided machine**
+"""
+SUMMARY = "This backend simulates the reporting of sensor data."
 ORIGINS = [
     "http://localhost",
     "http://localhost:8080",
