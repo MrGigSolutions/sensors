@@ -16,19 +16,29 @@ The project consists of 5 main parts:
 - Install NPM
 - Clone this repository
 - In the root of the repository, run
-  ```docker compose build && docker compose up -d ```
+  ```docker compose build```
+## Running the backend
+- Got to the root directory
+- Run ```docker compose up -d ```
 - Go to the `frontend/dashboard` directory
 - Run ```npm start``` to start the frontend
+- To stop, interrupt `npm` and then in root folder, type
+  ```docker compose down```
+
+Alternatively, to view the logs, run ```docker compose up``` in its
+own terminal.
 
 ## Usage
 The various parts of the application can be reached as follows.
-- To access the database, you can PSQL to localhost:5432.
+- To access the database, you can `psql` to `localhost:5432`.
   The default postgres username is "boss", and the password is "example"
-- To access the broker, you can browse to localhost:15672.
+- To access the broker, you can browse to `localhost:15672`.
   The login is "guest" and the password is also "guest"
-- To access the backend, you can go to localhost:8080/docs. This
-  will display a Swagger UI with documentation on the endpoints.
-  It's possible to authenticate by using the username "johndoe" and password "secret"
+- To access the backend, you can go to `localhost:8080/docs` for Swagger
+  or `localhost:8080/redoc` or Redoc. This
+  will display a UI with some documentation on the endpoints.
+  It's possible to test authentication by using the username 
+  "johndoe" and password "secret"
 
 ## About some shortcuts used in this project
 This project was developed under certain time constraints, and thus
@@ -41,7 +51,7 @@ some shortcuts were needed.
   fake methods to simulate the process of logging in. Of course none of
   this would be used in a proper login
 - This project is not tested. Bad. It's been prepared for testing in the
-  sense that it's possible to specifiy different database parameters etc,
+  sense that it's possible to specify different database parameters etc,
   but no tests were implemented.
 - The sensor is tightly coupled to the backend. It would probably be
   better to have the sensor publish to the message queue, then read that
@@ -77,3 +87,7 @@ some shortcuts were needed.
 - Read endpoint could be refactored. Most of the data formatting is now
   done in the frontend, such as grouping by machine. This could be done in
   the backend, for performance reasons.
+- The various Docker containers generate quite a few warnings.
+  These are probably due to version issues, or obsolete settings enabled
+  by default. It would be good to examine these and address them. However,
+  they don't interfere with execution of the backend.
