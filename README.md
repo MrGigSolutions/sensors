@@ -4,10 +4,10 @@ reporting sensor readings.
 
 The project consists of 5 main parts:
 - The sensor: this is a Celery-based scheduler that schedules a sensor reading every 30 seconds.
-- The broker: used by Celery for task scheduler. In this project, it's RabbitMQ.
+- The broker: used by Celery for task scheduling. In this project, it's RabbitMQ.
 - The backend: this receives sensor readings, and allows the frontend to
   request report data, and to authenticate a user.
-- The database: A Postgres database
+- The database: a Postgres database that stores sensor data
 - The frontend: a simple React app that reads the sensor data from the backend, and allows
   the user to login. The graph refreshes every 60 seconds.
 
@@ -40,6 +40,10 @@ The various parts of the application can be reached as follows.
   It's possible to test authentication by using the username 
   "johndoe" and password "secret"
 
+Further note: this was only tested on MacOs with Docker Desktop, so some 
+small tweaks may be needed to test on other operating systems or other container
+software.
+
 ## About some shortcuts used in this project
 This project was developed under certain time constraints, and thus
 some shortcuts were needed.
@@ -71,7 +75,7 @@ some shortcuts were needed.
   canceled. Better would be to create tasks, then wait for the result
   so writes do not break each other.
 - The frontend does not look very nice, and is more a proof of concept than
-  what a dashboard should look like.
+  what a dashboard could do, than what it should look like.
 - Regarding the graph, I wasn't sure what was meant by "summed timeseries with standard 5",
   so I rendered all timeseries in separate graphs. Adding them up would
   also be possible, then I would have probably grouped them in the backend.
@@ -91,3 +95,6 @@ some shortcuts were needed.
   These are probably due to version issues, or obsolete settings enabled
   by default. It would be good to examine these and address them. However,
   they don't interfere with execution of the backend.
+- Would be nice to make the graphs more dynamic, by allowing
+  the user to specify the length of time to query. This is very possible
+  in React / ApexCharts, but is a bit out of scope for this assignment.
