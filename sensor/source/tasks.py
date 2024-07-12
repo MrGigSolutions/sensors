@@ -1,10 +1,10 @@
 import datetime
-import random
 import json
-from typing import Dict, Any
+import random
+from typing import Any, Dict
 
-from celery import Celery
 import httpx
+from celery import Celery
 
 app = Celery()
 app.config_from_object("sensorconfig")
