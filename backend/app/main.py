@@ -17,11 +17,11 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     return await backend_login(form_data)
 
 
-@app.post("/sensor/input/", tags=["sensor", "input"])
+@app.post("/sensor/input/", tags=["sensor"])
 async def sensor_input(input: SerializedSensorInput) -> SerializedSensorInput:
     return await backend_write_sensor_input(engine, input)
 
 
-@app.get("/sensor/data", tags=["sensor", "data"])
+@app.get("/sensor/data", tags=["sensor"])
 async def read_sensor_data(seconds: int) -> List[SerializedSensorInput]:
     return await backend_read_sensor_data(engine, seconds)

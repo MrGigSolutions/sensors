@@ -23,14 +23,6 @@ TAGS_METADATA = [
         "description": "Operations with sensor data.",
     },
     {
-        "name": "input",
-        "description": "Add sensor input to the database.",
-    },
-    {
-        "name": "data",
-        "description": "Read sensor data from the database.",
-    },
-    {
         "name": "oauth",
         "description": "Perform a login using an OAuth2 standard.",
     },
