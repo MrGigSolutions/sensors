@@ -7,7 +7,8 @@ from celery import Celery
 import httpx
 
 app = Celery()
-app.config_from_object('sensorconfig')
+app.config_from_object("sensorconfig")
+
 
 @app.task(name="tasks.generate_vibration")
 def generate_vibration():
@@ -22,15 +23,17 @@ def generate_vibration():
         sensor_readings.append(sensor_reading)
     return sensor_readings
 
+
 def _get_fake_sensor_reading(machine: str) -> Dict[str, Any]:
     return {
         "machine": machine,
         "vibration_speed": random.randint(1, 5),
-        "timestamp": datetime.datetime.now().isoformat()
+        "timestamp": datetime.datetime.now().isoformat(),
     }
 
+
 def load_machines():
-    machine_file = open('/opt/sensor/machines', 'r')
+    machine_file = open("/opt/sensor/machines", "r")
     result = []
     try:
         count = 0
