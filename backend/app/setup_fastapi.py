@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-TITLE="Machine vibration simulator"
-DESCRIPTION="""Machine Vibration Simulator - ASML Test Case Mark Schuit
+TITLE = "Machine vibration simulator"
+DESCRIPTION = """Machine Vibration Simulator - ASML Test Case Mark Schuit
     
     ## Sensor Data
     
@@ -35,6 +35,7 @@ TAGS_METADATA = [
         "description": "Perform a login using an OAuth2 standard.",
     },
 ]
+
 
 def setup_backend():
     app = FastAPI(

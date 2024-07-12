@@ -13,7 +13,7 @@ def setup_sql_alchemy():
         password=os.environ.get("PGPASSWORD"),
         host=os.environ.get("PGPHOST"),
         port=os.environ.get("PGPORT"),
-        database=os.environ.get("PGPDATABASE")
+        database=os.environ.get("PGPDATABASE"),
     )
     engine = create_engine(url)
     engine.connect()

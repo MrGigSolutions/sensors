@@ -1,10 +1,12 @@
 from datetime import datetime
 
-from sqlalchemy import create_engine, String
+from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
 
 class Base(DeclarativeBase):
     pass
+
 
 class DbSensorInput(Base):
     __tablename__ = "sensorinput"
@@ -23,4 +25,3 @@ class DbSensorInput(Base):
             f"timestamp={self.timestamp.isoformat()!r} "
             f")"
         )
-

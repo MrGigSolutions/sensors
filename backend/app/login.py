@@ -4,7 +4,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from .serializers import SerializedUser, SerializedUserWithPasswordHash
 
-TOKEN_URL="/auth/token"
+TOKEN_URL = "/auth/token"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=TOKEN_URL)
 
 # TODO: Add this properly to the DB, but is ok for demo
@@ -25,12 +25,15 @@ fake_users_db = {
     },
 }
 
+
 def fake_decode_token(token):
     user = get_user(fake_users_db, token)
     return user
 
+
 def fake_hash_password(password: str):
     return "fakehashed" + password
+
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     user = fake_decode_token(token)
@@ -42,6 +45,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         )
     return user
 
+
 async def get_current_active_user(
     current_user: Annotated[SerializedUser, Depends(get_current_user)],
 ):
@@ -49,10 +53,12 @@ async def get_current_active_user(
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
+
 def get_user(db, username: str):
     if username in db:
         user_dict = db[username]
         return SerializedUser(**user_dict)
+
 
 async def backend_login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
     user_dict = fake_users_db.get(form_data.username)
@@ -64,4 +70,3 @@ async def backend_login(form_data: Annotated[OAuth2PasswordRequestForm, Depends(
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
     return {"access_token": user.username, "token_type": "bearer"}
-
